@@ -34,26 +34,26 @@ int main(){
 	Treenode* pre = NULL;
 	stack<Treenode*> helper;
 	while(cur != NULL || !helper.empty()){
-		while(cur != NULL){
+		if(cur != NULL){
 			helper.push(cur); 
 			cur = cur->left;
-		}
+		}else{
 		//表示左子树遍历到头/正在出栈 
 		cur = helper.top();
-		helper.pop();
 		if(cur->right == NULL || cur->right == pre ) { //没有往右的空间，就往上走，回到根节点。 
 		//第一种情况：从左子树回到根节点，没有右子树。 
 		//第二种情况：从右子树回到根节点。 
 		//这两种情况都要先将左子树或者右子树加入结果后再返回。 
+		    helper.pop();
 			res.push_back(cur->val);
 			pre = cur;
 			cur = NULL;
 		}else{ //还有往右走的空间，就继续往右 
-			helper.push(cur);
 			cur = cur->right;
 		}
+      }    	
 	}
-	for(int i = 0;i < res.size();i ++){
+	for(int i = 0;i < data.size();i ++){
 		cout<<res[i]<<endl;
 	}
 	return 0;
